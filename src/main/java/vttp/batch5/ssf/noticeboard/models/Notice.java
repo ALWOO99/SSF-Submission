@@ -1,6 +1,6 @@
 package vttp.batch5.ssf.noticeboard.models;
 
-import java.util.Arrays;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,21 +11,21 @@ import jakarta.validation.constraints.Size;
 
 public class Notice {
 @Size(min =3 , max = 128)
-    private String title;
+    public String title;
 
     @NotNull
-    @Email
-    private String poster;
+    @Email(message = "must be a well-formed email address")
+    public String poster;
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private String postDate;
+    public LocalDateTime postDate;
 
     @NotNull
-    private List<String> categories = Arrays.asList("public-notice", "sport", "meeting", "garage-sale","others");
+    public List<String> categories;
 
     @NotNull
-    private String text;
+    public String text;
 
     public String getTitle() {
         return title;
@@ -43,11 +43,11 @@ public class Notice {
         this.poster = poster;
     }
 
-    public String getPostDate() {
+    public @NotNull LocalDateTime getPostDate() {
         return postDate;
     }
 
-    public void setPostDate(String postDate) {
+    public void setPostDate(@NotNull LocalDateTime postDate) {
         this.postDate = postDate;
     }
 
