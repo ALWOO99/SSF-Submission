@@ -6,11 +6,12 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class Notice {
-@Size(min =3 , max = 128)
+    @Size(min = 3, max = 128)
     public String title;
 
     @NotNull
@@ -18,8 +19,11 @@ public class Notice {
     public String poster;
 
     @NotNull
+    @FutureOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDateTime postDate;
+    
+    
 
     @NotNull
     public List<String> categories;
@@ -43,15 +47,13 @@ public class Notice {
         this.poster = poster;
     }
 
-    public @NotNull LocalDateTime getPostDate() {
+    public @NotNull @FutureOrPresent LocalDateTime getPostDate() {
         return postDate;
     }
 
-    public void setPostDate(@NotNull LocalDateTime postDate) {
+    public void setPostDate( @NotNull @FutureOrPresent LocalDateTime postDate) {
         this.postDate = postDate;
     }
-
-  
 
     public String getText() {
         return text;
@@ -61,6 +63,11 @@ public class Notice {
         this.text = text;
     }
 
+    @Override
+    public String toString() {
+        return "[" + postDate + "]";
+    }
+
     public List<String> getCategories() {
         return categories;
     }
@@ -68,5 +75,5 @@ public class Notice {
     public void setCategories(List<String> categories) {
         this.categories = categories;
     }
-    
+
 }
