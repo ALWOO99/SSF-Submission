@@ -11,7 +11,7 @@ COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
-RUN chmod a+x ./mvnw && ./mvnw package -Dmaven.test.skip=true 
+RUN chmod a+x ./mvnw && ./mvnw package -Dmaven.test.skip=true
 
 ENV SERVER_PORT=3000
 
@@ -27,12 +27,12 @@ ARG WORK_DIR=/app
 
 WORKDIR ${WORK_DIR}
 
-COPY --from=builder /compiledir/target/noticeboard-0.0.1-SNAPSHOT.jar vttp-ssf-day19.jar
+COPY --from=builder /compiledir/target/noticeboard-0.0.1-SNAPSHOT.jar noticeboard.jar
 
 ENV SERVER_PORT=3000
 
 EXPOSE ${SERVER_PORT}
 SHELL [ "/bin/sh", "-c" ]
-ENTRYPOINT java -jar vttp-ssf-day19.jar
+ENTRYPOINT java -jar noticeboard.jar
 
 HEALTHCHECK --interval=30s --timeout=60s --start-period=120s --retries=3 CMD curl -s -f http:/localhost:4000/demo/health || exit 1
